@@ -143,6 +143,14 @@ def analyze(data_filepath: str, first_points: int, cut_final_points: int) -> Non
     plt.xlabel("Time [s]")
     plt.ylabel("Current [A]")
 
+    # Check the rate of current command
+    plt.figure()
+    plt.plot(exp_times[:-1], np.diff(current_cmd[:, 0]) / np.diff(exp_times), "y--")
+    plt.plot(exp_times[:-1], np.diff(current_cmd[:, 1]) / np.diff(exp_times), "k--")
+    plt.legend(["Current A Cmd Rate", "Current B Cmd Rate"])
+    plt.xlabel("Time [s]")
+    plt.ylabel("Current Cmd Rate [A/s]")
+
     # Check the linear encoder
     plt.figure()
     plt.plot(exp_times, linear_encoder[:, 0] - linear_encoder[0, 0], "bx-")
